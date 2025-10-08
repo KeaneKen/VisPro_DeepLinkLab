@@ -45,6 +45,13 @@ class _MyAppState extends State<MyApp> {
         context,
         MaterialPageRoute(builder: (context) => DetailScreen(id: id)),
       );
+    } else if (uri.host == 'profile') {
+      // Example link: myapp://profile/alex
+      final username = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : 'guest';
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileScreen(username: username)),
+      );
     }
   }
 
@@ -77,6 +84,19 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Details')),
       body: Center(child: Text('You opened item ID: $id')),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  final String username;
+  const ProfileScreen({required this.username});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Profile')),
+      body: Center(child: Text('Hello, $username!')),
     );
   }
 }
